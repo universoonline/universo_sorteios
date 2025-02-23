@@ -1,0 +1,8 @@
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    width: 250px; /* Tamanho padrão */
+    border-radius: 10px; /* Borda arredondada opcional */
+}
