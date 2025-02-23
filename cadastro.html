@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Universo Sorteio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      color: #ff5733;
+    }
+    form {
+      margin-top: 20px;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #ff5733;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #e65c00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cadastro de Participantes</h1>
+    <p>Preencha os campos abaixo para participar do sorteio!</p>
+    <form id="cadastroForm">
+      <input type="email" id="email" placeholder="Digite seu e-mail" required>
+      <input type="tel" id="whatsapp" placeholder="Digite seu WhatsApp" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const whatsapp = document.getElementById('whatsapp').value;
+      alert('Cadastro realizado!\nE-mail: ' + email + '\nWhatsApp: ' + whatsapp);
+      // Aqui você pode adicionar a lógica para enviar os dados para um servidor ou armazená-los.
+    });
+  </script>
+</body>
+</html>
