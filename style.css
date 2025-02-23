@@ -1,8 +1,8 @@
 img {
-    max-width: 100%;
+    max-width: 250px; /* Define um tamanho máximo */
+    width: 250px; /* Define um tamanho fixo */
     height: auto;
     display: block;
     margin: 0 auto;
-    width: 250px; /* Tamanho padrão */
     border-radius: 10px; /* Borda arredondada opcional */
 }
