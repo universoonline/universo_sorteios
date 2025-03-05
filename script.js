@@ -13,31 +13,24 @@ async function cadastrarParticipante(e) {
     const email = document.getElementById('email').value;
     const whatsapp = document.getElementById('whatsapp').value;
 
-    try {
-        // Envia os dados para a tabela 'universo_sorteio' no Supabase
-const { data, error } = await supabase
-    .from('universo_sorteio') // Nome da tabela no Supabase
-    .insert([
-        { email: email, whatsapp: whatsapp }
-    ]);
-
-if (error) {
-    console.error('Erro ao cadastrar participante:', error);
-    alert('Erro ao cadastrar, tente novamente.');
-} else {
-    alert(`Cadastro realizado!\nE-mail: ${email}\nWhatsApp: ${whatsapp}`);
-}
-
-        if (error) {
-            console.error('Erro ao cadastrar participante:', error);
-            alert('Erro ao cadastrar, tente novamente.');
-        } else {
-            alert(`Cadastro realizado!\nE-mail: ${email} \nWhatsApp: ${whatsapp}`);
-        }
-    } catch (err) {
-        console.error("Erro no try-catch:", err);
-        alert('Erro no processo, tente novamente!');
+  try {
+    // Envia os dados para a tabela 'universo_sorteio' no Supabase
+    const { data, error } = await supabase
+        .from('universo_sorteio') // Nome da tabela no Supabase
+        .insert([
+            { email: email, whatsapp: whatsapp }
+        ]);
+    
+    if (error) {
+        console.error('Erro ao cadastrar participante:', error);
+        alert('Erro ao cadastrar, tente novamente.');
+    } else {
+        alert(`Cadastro realizado!\nE-mail: ${email}\nWhatsApp: ${whatsapp}`);
     }
+} catch (err) {
+    console.error("Erro no try-catch:", err);
+    alert('Erro no processo, tente novamente!');
+}
 }
 
 // Adiciona o ouvinte de evento para o envio do formulário
