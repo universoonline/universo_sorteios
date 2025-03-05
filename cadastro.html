@@ -64,7 +64,25 @@
       const email = document.getElementById('email').value;
       const whatsapp = document.getElementById('whatsapp').value;
       alert('Cadastro realizado!\nE-mail: ' + email + '\nWhatsApp: ' + whatsapp);
-      // Aqui você pode adicionar a lógica para enviar os dados para um servidor ou armazená-los.
+      //// Isso vai após o seu alert
+const SUPABASE_URL = "https://runpfgacmjemflyecub.supabase.co";  // Substitua pela sua URL do Supabase
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnBmZ2FjbWplbWZseWVjdWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDUyODczOCwiZXhwIjoyMDU2MTA0NzM4fQ.3MD4q-DssyXdBUOw1IcrU9FAQZCdpiEElCz55kfz0js"; // Substitua pela sua chave Anon do Supabase
+
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Enviar os dados para o Supabase
+supabase
+    .from('universo_sorteio') // Nome da sua tabela no Supabase
+    .insert([
+        { email: email, whatsapp: whatsapp }
+    ])
+    .then(({ data, error }) => {
+        if (error) {
+            console.error('Erro ao inserir dados:', error);
+        } else {
+            alert('Dados cadastrados com sucesso!');
+        }
+    }); Aqui você pode adicionar a lógica para enviar os dados para um servidor ou armazená-los.
     });
   </script>
 </body>
