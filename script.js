@@ -7,7 +7,7 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function carregarParticipantes() {
     const { data, error } = await supabase
-        .from('usuarios') // Nome da tabela que você está usando
+        .from('universo_sorteio') // Nome da tabela que você está usando
         .select('*'); // Pega todos os dados da tabela
 
     if (error) {
