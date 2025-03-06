@@ -52,18 +52,27 @@
   <div class="container">
     <h1>Cadastro de Participantes</h1>
     <p>Preencha os campos abaixo para participar do sorteio!</p>
-    <form id="cadastroForm">
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" placeholder="Digite seu nome" required>
+    document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+  e.preventDefault(); // Evita o envio do formulário
 
-      <label for="email">email:</label>
-      <input type="email" id="email" placeholder="Digite seu e-mail" required>
+  const nome = document.getElementById('nome').value;
+  const email = document.getElementById('email').value;
+  const whatsapp = document.getElementById('whatsapp').value;
+  const data_cadastro = new Date().toISOString(); // Preenche com a data atual no formato ISO
 
-      <label for="whatsapp">WhatsApp:</label>
-      <input type="text" id="whatsapp" placeholder="Digite seu WhatsApp" required>
-
-      <button type="submit">Cadastrar</button>
-    </form>
+  supabase
+    .from('universo_sorteio') // Nome da sua tabela no Supabase
+    .insert([
+      { nome: nome, email: email, whatsapp: whatsapp, data_cadastro: data_cadastro }
+    ])
+    .then(({ data, error }) => {
+      if (error) {
+        console.error('Erro ao inserir dados:', error);
+      } else {
+        alert('Dados cadastrados com sucesso!');
+      }
+    });
+});
 
     <script>
       // Código Supabase que já estava na linha 62
