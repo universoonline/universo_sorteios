@@ -94,74 +94,64 @@
       </table>
     </div>
 
-      <script>
-      // Código Supabase
-      const SUPABASE_URL =
-        "https://runpfgacmjemyflxecubp.supabase.co"; // Substitua pela sua URL
-      const SUPABASE_ANON_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnBmZ2FjbWplbWZseWVjdWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDUyODczOCwiZXhwIjoyMDU2MTA0NzM4fQ.3MD4q-DssyXdBUOw1IcrU9FAQZCdpiEElCz55kfz0js"; // Substitua pela sua chave anon
+    <script>
+  // Código Supabase
+  const SUPABASE_URL = "https://runpfgacmjemyflxecub.supabase.co"; // Substitua pela sua URL
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnBmZ2FjbWplbWZseWVjdWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDUyODczOCwiZXhwIjoyMDU2MTA0NzM4fQ.3MD4q-DssyXdBUOw1IcrU9FAQZCdpiEElCz55kfz0js"; // Substitua pela sua chave anônima
 
-      const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // Inicializa o supabase (essa linha deve vir antes de qualquer uso de supabase)
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      // Envia os dados para o Supabase
-      document
-        .getElementById("cadastroForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault(); // Evita o envio do formulário
+  // Envia os dados para o Supabase
+  document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Evita o envio do formulário
 
-          const nome = document.getElementById("nome").value;
-          const email = document.getElementById("email").value;
-          const whatsapp = document.getElementById("whatsapp").value;
-          const data_cadastro = document.getElementById("data_cadastro").value; // Pega a data do campo de data
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const whatsapp = document.getElementById('whatsapp').value;
+    const data_cadastro = new Date().toISOString(); // Pega a data atual no formato ISO
 
-          // Envia os dados para o Supabase
-          supabase
-            .from("universo_sorteio") // Nome da sua tabela no Supabase
-            .insert([
-              {
-                nome: nome,
-                email: email,
-                whatsapp: whatsapp,
-                data_cadastro: data_cadastro,
-              },
-            ])
-            .then(({ data, error }) => {
-              if (error) {
-                console.error("Erro ao inserir dados:", error);
-              } else {
-                alert("Cadastro realizado com sucesso!");
-                carregarDados(); // Atualiza a tabela após o cadastro
-              }
-            });
-        });
-
-      // Função para carregar os dados e exibir na tabela
-      async function carregarDados() {
-        const { data, error } = await supabase
-          .from("universo_sorteio") // Nome da sua tabela no Supabase
-          .select("*"); // Seleciona todos os campos
-
+    // Envia os dados para o Supabase
+    supabase
+      .from('universo_sorteio') // Nome da sua tabela no Supabase
+      .insert([
+        { nome: nome, email: email, whatsapp: whatsapp, data_cadastro: data_cadastro }
+      ])
+      .then(({ data, error }) => {
         if (error) {
-          console.error("Erro ao carregar dados:", error);
+          console.error('Erro ao inserir dados:', error);
         } else {
-          const tabela = document.querySelector("#tabelaParticipantes tbody"); // Seleciona o corpo da tabela
-          tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados
-
-          data.forEach((participante) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-              <td>${participante.nome}</td>
-              <td>${participante.email}</td>
-              <td>${participante.whatsapp}</td>
-              <td>${participante.data_cadastro}</td>
-            `;
-            tabela.appendChild(row);
-          });
+          alert('Cadastro realizado com sucesso!');
+          carregarDados(); // Carrega os dados da tabela após o cadastro
         }
-      }
+      });
+  });
 
-      // Carrega os dados assim que a página for carregada
-      carregarDados();
-    </script>
-  </body>
-</html>
+  // Função para carregar os dados e exibir na tabela
+  async function carregarDados() {
+    const { data, error } = await supabase
+      .from('universo_sorteio') // Nome da sua tabela no Supabase
+      .select('*'); // Seleciona todos os campos
+
+    if (error) {
+      console.error('Erro ao carregar dados:', error);
+    } else {
+      const tabela = document.querySelector('#tabelaParticipantes tbody'); // Seleciona o corpo da tabela
+      tabela.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
+
+      data.forEach((participante) => {
+        const row = document.createElement('tr'); // Cria uma nova linha
+        row.innerHTML = `
+          <td>${participante.nome}</td>
+          <td>${participante.email}</td>
+          <td>${participante.whatsapp}</td>
+          <td>${participante.data_cadastro}</td>
+        `;
+        tabela.appendChild(row); // Adiciona a nova linha na tabela
+      });
+    }
+  }
+
+  // Carrega os dados assim que a página for carregada
+  carregarDados();
+</script>
