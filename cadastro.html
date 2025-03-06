@@ -77,18 +77,45 @@
       const data_cadastro = document.getElementById('data_cadastro').value; // Pega a data do campo de data
 
       // Envia os dados para o Supabase
-      supabase
-        .from('universo_sorteio') // Nome da sua tabela no Supabase
-        .insert([
-          { nome: nome, email: email, whatsapp: whatsapp, data_cadastro: data_cadastro }
-        ])
-        .then(({ data, error }) => {
-          if (error) {
-            console.error('Erro ao inserir dados:', error);
-          } else {
-            alert('Cadastro realizado com sucesso!');
-          }
-        });
+supabase
+  .from('universo_sorteio') // Nome da sua tabela no Supabase
+  .insert([
+    { nome: nome, email: email, whatsapp: whatsapp, data_cadastro: data_cadastro }
+  ])
+  .then(({ data, error }) => {
+    if (error) {
+      console.error('Erro ao inserir dados:', error);
+    } else {
+      alert('Cadastro realizado com sucesso!');
+      carregarDados(); // Aqui você chama a função que carrega os dados na tabela
+    }
+  });
+
+// Função para carregar os dados e exibir na tabela
+async function carregarDados() {
+  const { data, error } = await supabase
+    .from('universo_sorteio') // Nome da sua tabela
+    .select('*'); // Seleciona todos os campos
+
+  if (error) {
+    console.error('Erro ao carregar dados:', error);
+  } else {
+    const tabela = document.querySelector('#tabelaParticipantes tbody');
+    tabela.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
+
+    // Preenche a tabela com os dados
+    data.forEach((participante) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${participante.nome}</td>
+        <td>${participante.email}</td>
+        <td>${participante.whatsapp}</td>
+        <td>${participante.data_cadastro}</td>
+      `;
+      tabela.appendChild(row);
     });
-  </script>
-</body>
+  }
+}
+
+// Carrega os dados assim que a página for carregada
+carregarDados();
