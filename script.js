@@ -7,31 +7,32 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Função para cadastrar os participantes
 async function cadastrarParticipante(e) {
-    e.preventDefault();  // Evita o envio do formulário
+  e.preventDefault(); // Evita o envio do formulário
 
-    // Captura os dados do formulário
-    const email = document.getElementById('email').value;
-    const whatsapp = document.getElementById('whatsapp').value;
+  // Captura os dados do formulário
+  const email = document.getElementById('email').value;
+  const whatsapp = document.getElementById('whatsapp').value;
 
   try {
     // Envia os dados para a tabela 'universo_sorteio' no Supabase
     const { data, error } = await supabase
-        .from('universo_sorteio') // Nome da tabela no Supabase
-        .insert([
-            { email: email, whatsapp: whatsapp }
-        ]);
-    
+      .from('universo_sorteio') // Nome da tabela no Supabase
+      .insert([
+        { email: email, whatsapp: whatsapp }
+      ]);
+
     if (error) {
-        console.error('Erro ao cadastrar participante:', error);
-        alert('Erro ao cadastrar, tente novamente.');
+      console.error('Erro ao cadastrar participante:', error);
+      alert('Erro ao cadastrar, tente novamente.');
     } else {
-        alert(`Cadastro realizado!\nE-mail: ${email}\nWhatsApp: ${whatsapp}`);
+      alert(`Cadastro realizado!\nE-mail: ${email}\nWhatsApp: ${whatsapp}`);
     }
-} catch (err) {
-    console.error("Erro no try-catch:", err);
+  } catch (err) {
+    console.error('Erro no try-catch:', err);
     alert('Erro no processo, tente novamente!');
+  }
 }
-}
+
 
 // Adiciona o ouvinte de evento para o envio do formulário
 document.getElementById('cadastroForm').addEventListener('submit', cadastrarParticipante);
