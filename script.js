@@ -1,38 +1,28 @@
-// Substitua pela sua URL e chave anônima do Supabase
-const SUPABASE_URL = "https://runpfgacmjemflyecubp.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnBmZ2FjbWplbWZseWVjdWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDUyODczOCwiZXhwIjoyMDU2MTA0NzM4fQ.3MD4q-DssyXdBUOw1IcrU9FAQZCdpiEElCz55kfz0js"; // Coloque sua chave aqui
+const SUPABASE_URL = "https://runpfgacmjemyflxecubp.supabase.co"; // Substitua pela sua URL
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnBmZ2FjbWplbWZseWVjdWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDUyODczOCwiZXhwIjoyMDU2MTA0NzM4fQ.3MD4q-DssyXdBUOw1IcrU9FAQZCdpiEElCz55kfz0js"; // Substitua pela sua chave
 
-// Conectar ao Supabase
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Função para cadastrar os participantes
-async function cadastrarParticipante(e) {
+document.getElementById('cadastroForm').addEventListener('submit', function(e) {
   e.preventDefault(); // Evita o envio do formulário
 
-  // Captura os dados do formulário
+  const nome = document.getElementById('nome').value;
   const email = document.getElementById('email').value;
   const whatsapp = document.getElementById('whatsapp').value;
+  const data_cadastro = new Date().toISOString(); // Pega a data e hora atual para o cadastro
 
-  try {
-    // Envia os dados para a tabela 'universo_sorteio' no Supabase
-    const { data, error } = await supabase
-      .from('universo_sorteio') // Nome da tabela no Supabase
-      .insert([
-        { email: email, whatsapp: whatsapp }
-      ]);
-
-    if (error) {
-      console.error('Erro ao cadastrar participante:', error);
-      alert('Erro ao cadastrar, tente novamente.');
-    } else {
-      alert(`Cadastro realizado!\nE-mail: ${email}\nWhatsApp: ${whatsapp}`);
-    }
-  } catch (err) {
-    console.error('Erro no try-catch:', err);
-    alert('Erro no processo, tente novamente!');
-  }
-}
-
-
-// Adiciona o ouvinte de evento para o envio do formulário
-document.getElementById('cadastroForm').addEventListener('submit', cadastrarParticipante);
+  // Envia os dados para o Supabase
+  supabase
+    .from('universo_sorteio') // Nome da sua tabela no Supabase
+    .insert([
+      { nome: nome, email: email, whatsapp: whatsapp, data_cadastro: data_cadastro }
+    ])
+    .then(({ data, error }) => {
+      if (error) {
+        console.error('Erro ao inserir dados:', error);
+      } else {
+        alert('Cadastro realizado com sucesso!');
+      }
+    });
+});
+   
