@@ -58,13 +58,51 @@
       <button type="submit">Cadastrar</button>
     </form>
   </div>
-  <script>
-    document.getElementById('cadastroForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const whatsapp = document.getElementById('whatsapp').value;
-      alert('Cadastro realizado!\nE-mail: ' + email + '\nWhatsApp: ' + whatsapp);
-      //// Isso vai após o seu alert
+  // Função para cadastrar os participantes
+async function cadastrarParticipante(e) {
+    e.preventDefault(); // Evita o envio do formulário
+
+    // Captura os dados do formulário
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const whatsapp = document.getElementById('whatsapp').value;
+
+    // Preenche automaticamente o campo data_cadastro com a data atual
+    const dataCadastro = new Date().toISOString();  // Data atual no formato ISO
+    document.getElementById('data_cadastro').value = dataCadastro;
+
+    // Preenche o campo numero_sorteio com um número gerado aleatoriamente
+    const numeroSorteio = Math.floor(Math.random() * 10000);  // Exemplo de número sorteado
+    document.getElementById('numero_sorteio').value = numeroSorteio;
+
+    // Envia os dados para o banco de dados
+    try {
+        const { data, error } = await supabase
+            .from('universo_sorteio')  // Nome da tabela no Supabase
+            .insert([
+                {
+                    nome: nome,
+                    email: email,
+                    whatsapp: whatsapp,
+                    data_cadastro: dataCadastro,
+                    numero_sorteio: numeroSorteio
+                }
+            ]);
+
+        if (error) {
+            console.error('Erro ao cadastrar participante:', error);
+            alert('Erro ao cadastrar, tente novamente.');
+        } else {
+            alert(`Cadastro realizado!\nE-mail: ${email} \nWhatsApp: ${whatsapp}`);
+        }
+    } catch (err) {
+        console.error('Erro no try-catch:', err);
+        alert('Erro no processo, tente novamente!');
+    }
+}
+
+// Adiciona o ouvinte de evento para o envio do formulário
+document.getElementById('cadastroForm').addEventListener('submit', cadastrarParticipante);
 const SUPABASE_URL = "https://runpfgacmjemflyecubp.supabase.co";  // Substitua pela sua URL do Supabase
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnBmZ2FjbWplbWZseWVjdWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDUyODczOCwiZXhwIjoyMDU2MTA0NzM4fQ.3MD4q-DssyXdBUOw1IcrU9FAQZCdpiEElCz55kfz0js"; // Substitua pela sua chave Anon do Supabase
 
