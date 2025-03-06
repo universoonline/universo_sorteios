@@ -1,4 +1,4 @@
-const SUPABASE_URL = "https://runpfgacmjemyflxecubp.supabase.co"; // Substitua pela sua URL
+const SUPABASE_URL = "https://runpfgacmjemflyecubp.supabase.co"; // Substitua pela sua URL
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnBmZ2FjbWplbWZseWVjdWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDUyODczOCwiZXhwIjoyMDU2MTA0NzM4fQ.3MD4q-DssyXdBUOw1IcrU9FAQZCdpiEElCz55kfz0js"; // Substitua pela sua chave
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
