@@ -1,6 +1,6 @@
 img {
-    max-width: 250px; /* Define um tamanho máximo */
-    width: 250px; /* Define um tamanho fixo */
+    max-width: 150px; /* Define um tamanho máximo */
+    width: 150px; /* Define um tamanho fixo */
     height: auto;
     display: block;
     margin: 0 auto;
