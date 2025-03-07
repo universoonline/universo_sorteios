@@ -95,36 +95,6 @@
     </div>
 
     <script>
- // Código Supabase
-const SUPABASE_URL = "https://runpfgacmjemyflxecub.supabase.co"; // Substitua pela sua URL
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnBmZ2FjbWplbWZseWVjdWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDUyODczOCwiZXhwIjoyMDU2MTA0NzM4fQ.3MD4q-DssyXdBUOw1IcrU9FAQZCdpiEElCz55kfz0js"; // Substitua pela sua chave
-
-// Inicialize a variável supabase
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-document.getElementById('cadastroForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita o envio do formulário
-
-    // Coleta os valores do formulário
-    const nome = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const whatsapp = document.getElementById('whatsapp').value;
-    const data_cadastro = new Date().toISOString(); // Captura a data atual em formato ISO
-
-    // Envia os dados para o Supabase
-    supabase
-        .from('universo_sorteio') // Nome da sua tabela no Supabase
-        .insert([{
-            nome: nome,
-            email: email,
-            whatsapp: whatsapp,
-            data_cadastro: data_cadastro
-        }])
-        .then(({ data, error }) => {
-            if (error) {
-                console.error('Erro ao inserir dados:', error);
-            } else {
-                alert('Cadastro realizado com sucesso!');
-            }
-        });
-});
+<script src="script.js"></script>
+</body>
+</html>
