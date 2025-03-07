@@ -34,6 +34,7 @@ async function cadastrarUsuario() {
         alert("Ocorreu um erro. Tente novamente.");
     }
 }
+document.addEventListener("DOMContentLoaded", function () {
+    window.cadastrarUsuario = cadastrarUsuario;
+});
 
-// Tornando a função acessível globalmente
-window.cadastrarUsuario = cadastrarUsuario;
