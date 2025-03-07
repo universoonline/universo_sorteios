@@ -4,26 +4,26 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function cadastrarUsuario() {
-    // Coleta os valores do formulário
-    const nome = document.getElementById('nome').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const whatsapp = document.getElementById('whatsapp').value.trim();
-    const data_cadastro = new Date().toISOString(); // Data atual em formato ISO
-
-    // Verifica se os campos estão preenchidos
-    if (!nome || !email || !whatsapp) {
-        alert("Preencha todos os campos!");
-        return;
-    }
-
     try {
-        // Envia os dados para o Supabase
+        // Pegando os valores dos inputs
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const whatsapp = document.getElementById('whatsapp').value.trim();
+        const data_cadastro = new Date().toISOString();
+
+        // Verificando se os campos foram preenchidos
+        if (!nome || !email || !whatsapp) {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+        // Enviando os dados para o Supabase
         const { data, error } = await supabase
             .from('universo_sorteio') // Nome da tabela no Supabase
             .insert([{ nome, email, whatsapp, data_cadastro }]);
 
         if (error) {
-            console.error("Erro ao cadastrar:", error.message);
+            console.error("Erro ao cadastrar:", error);
             alert("Erro ao cadastrar! Verifique o console.");
         } else {
             alert("Cadastro realizado com sucesso!");
@@ -35,11 +35,5 @@ async function cadastrarUsuario() {
     }
 }
 
-// Adiciona evento ao formulário para capturar o envio
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("cadastroForm").addEventListener("submit", async function (e) {
-        e.preventDefault(); // Evita o reload da página
-        await cadastrarUsuario();
-    });
-});
+// Tornando a função acessível globalmente
 window.cadastrarUsuario = cadastrarUsuario;
