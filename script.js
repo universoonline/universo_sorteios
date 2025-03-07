@@ -42,3 +42,4 @@ document.addEventListener("DOMContentLoaded", function() {
         await cadastrarUsuario();
     });
 });
+window.cadastrarUsuario = cadastrarUsuario;
