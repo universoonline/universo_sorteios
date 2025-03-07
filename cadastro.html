@@ -105,16 +105,26 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     e.preventDefault(); // Evita o envio do formulário
 
-    // Captura os valores dos campos
-    const nome = document.getElementById('nome').value;
+    // Coleta os valores do formulário
+    const nome = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const whatsapp = document.getElementById('whatsapp').value;
-    const data_cadastro = new Date().toISOString(); // Pega a data atual no formato ISO
+    const data_cadastro = new Date().toISOString(); // Captura a data atual em formato ISO
 
     // Envia os dados para o Supabase
     supabase
         .from('universo_sorteio') // Nome da sua tabela no Supabase
-        .insert([
-            { nome: nome, email: email, whatsapp: whatsapp, data_cadastro: data_cadastro }
-        ])
-        .then(({ data,
+        .insert([{
+            nome: nome,
+            email: email,
+            whatsapp: whatsapp,
+            data_cadastro: data_cadastro
+        }])
+        .then(({ data, error }) => {
+            if (error) {
+                console.error('Erro ao inserir dados:', error);
+            } else {
+                alert('Cadastro realizado com sucesso!');
+            }
+        });
+});
